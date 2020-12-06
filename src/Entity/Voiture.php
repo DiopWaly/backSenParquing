@@ -38,6 +38,31 @@ class Voiture
      */
     private $modele;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $capacite;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $air;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $options;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $conditions;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +112,66 @@ class Voiture
     public function setModele(?modele $modele): self
     {
         $this->modele = $modele;
+
+        return $this;
+    }
+
+    public function getCapacite(): ?string
+    {
+        return $this->capacite;
+    }
+
+    public function setCapacite(string $capacite): self
+    {
+        $this->capacite = $capacite;
+
+        return $this;
+    }
+
+    public function getAir(): ?string
+    {
+        return $this->air;
+    }
+
+    public function setAir(string $air): self
+    {
+        $this->air = $air;
+
+        return $this;
+    }
+
+    public function getOptions(): ?string
+    {
+        return $this->options;
+    }
+
+    public function setOptions(string $options): self
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
+    public function getConditions(): ?string
+    {
+        return $this->conditions;
+    }
+
+    public function setConditions(string $conditions): self
+    {
+        $this->conditions = $conditions;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

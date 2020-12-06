@@ -13,6 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MarqueController extends AbstractController
 {
+    // ionic cordova platform add android
+    // ionic cordova build android
+    // ionic cordova emulate android
     /**
      * @Route("/marque", name="marque")
      */
@@ -25,12 +28,10 @@ class MarqueController extends AbstractController
 
     /**
      * @Route("/marque/all", name="marque_all", methods={"GET"})
-     * @param Requeste $requeste
-     * @return JsonResponse 
      */
     public function getall(MarqueRepository $rep){
-        $data = $rep->findAll();
-        return $this->json($data);
+        // $data = $rep->findAll();
+        return $this->json($rep->findAll());
     }
     /**
      * @Route("/marque/{id<[0-9]+>}", name="marque_one", methods={"GET"})

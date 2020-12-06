@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Repository\ClientRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,12 +28,21 @@ class ClientController extends AbstractController
      */
     public function getAll(ClientRepository $rep){
         return $this->json($rep->findAll());
+    //    dd($rep->findclient('774420687', 'degga'));
     }
     /**
      * @Route("/client/{id<[0-9]+>}", name="client_one", methods={"GET"})
      */
     public function getOne(int $id, ClientRepository $rep){
+        // dd(sha1('degga'));
         return $this->json($rep->find($id));
+    }
+    /**
+     * @Route("/client/login", name="client_login", methods={"PATCH"})
+     */
+    public function login(Request $request, ClientRepository $rep){
+        $data = json_decode($request->getContent(), true);
+        return $this->json($rep->findclient($data['email'], sha1($data['password'])));
     }
     /**
      * @Route("/client/add", name="client_add", methods={"POST","GET"})
@@ -44,14 +54,15 @@ class ClientController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $client = new Client;
         $client->setPrenom($data['prenom']);
-        $client->setPrenom($data['nom']);
+        $client->setNom($data['nom']);
         $client->setCivilite($data['civilite']);
-        $client->setDateNaissance($data['datenaissance']);
+        $client->setDateNaissance(new DateTime($data['datenaissance']));
         $client->setLieuNaissance($data['lieunaissance']);
+        $client->setAdresse($data['adresse']);
         $client->setEmail($data['email']);
         $client->setTel($data['tel']);
         $client->setNumPermis($data['numpermis']);
-        $client->setPassword($data['password']);
+        $client->setPassword(sha1($data['password']));
         $client->setUserName($data['username']);
         $emi->persist($client);
         $emi->flush();
@@ -72,6 +83,7 @@ class ClientController extends AbstractController
         $client->setCivilite($data['civilite']);
         $client->setDateNaissance($data['datenaissance']);
         $client->setLieuNaissance($data['lieunaissance']);
+        $client->setAdresse($data['adresse']);      
         $client->setEmail($data['email']);
         $client->setTel($data['tel']);
         $client->setNumPermis($data['numpermis']);

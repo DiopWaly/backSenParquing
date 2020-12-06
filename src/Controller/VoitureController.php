@@ -35,6 +35,14 @@ class VoitureController extends AbstractController
         return $this->json($rep->findAll());
     }
     /**
+     * @Route("/voiture/trie/{id<[0-9]+>}", name="voiture_trie", methods={"GET"})
+     */
+    public function trieParCategorie(MarqueRepository $repMar, CategorieRepository $repCat,AnneeRepository $repAn,
+                            ModeleRepository $repMod, VoitureRepository $rep,int $id)
+    {
+        return $this->json($rep->trieVoitures($repMod->findByCategorie($id)));
+    }
+    /**
      * @Route("/voiture/{id<[0-9]+>}", name="voiture_one", methods={"GET"})
      */
     public function getOne(MarqueRepository $repMar, CategorieRepository $repCat,AnneeRepository $repAn,
@@ -43,18 +51,24 @@ class VoitureController extends AbstractController
         return $this->json($rep->find($id));
     }
     /**
-     * @Route("/voiture/add", name="voiture_add", methods={"POST"})
+     * @Route("/voiture/add", name="voiture_add", methods={"POST","GET"})
      * @param Requeste $requeste
      * @return JsonResponse
      */
-    public function add(EntityManagerInterface $emi, ModeleRepository $repMod, Request $request,
-                         MarqueRepository $repMar, AnneeRepository $repAn):JsonResponse
+    public function add(MarqueRepository $repMar, AnneeRepository $repAn,CategorieRepository $repCat,
+                            EntityManagerInterface $emi, ModeleRepository $repMod, Request $request):JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $voiture = new Voiture;
+        // dd($data);
         $voiture->setMatricule($data['matricule']);
-        $voiture->setDescription($data['description']);
-        $voiture->setTarifjrne($data['tarifjrne']);
+        $voiture->setDescription($data['libelle']);
+        $voiture->setTarifjrne($data['price']);
+        $voiture->setCapacite($data['capacite']);
+        $voiture->setAir($data['air']);
+        $voiture->setOptions($data['option']);
+        $voiture->setConditions($data['condition']);
+        $voiture->setImage($data['image']);
         $modele = $repMod->find($data['modele']);
         $voiture->setModele($modele);
         $emi->persist($voiture);

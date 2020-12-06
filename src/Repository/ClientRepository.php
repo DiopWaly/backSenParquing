@@ -47,4 +47,18 @@ class ClientRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findclient($value, $pwd){
+       $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT c FROM 
+                    App\Entity\Client c WHERE (c.email = :val1 
+                    OR c.tel = :val1 OR c.userName = :val1)
+                    AND c.password = :val2
+                '
+        )
+        ->setParameter('val1',$value)
+        ->setParameter('val2', $pwd)
+        ;
+        return $query->getOneOrNullResult();
+    }
 }

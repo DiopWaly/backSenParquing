@@ -65,9 +65,10 @@ class ReservationController extends AbstractController
         $reservation->setDateReservation($data['datereservation']);
         $reservation->setDateRetour($data['dateretour']);
         $reservation->setTarif($data['tarif']);
-        $reservation->setClient($data['client']);
-        $reservation->setChauffeur($data['chauffeur']);
-        $reservation->setVoiture($data['voiture']);
+        $reservation->setLieudisposition($data['lieudispo']);
+        $reservation->setClient($client);
+        $reservation->setChauffeur($chauffeur);
+        $reservation->setVoiture($voiture);
         
         $emi->persist($reservation);
         $emi->flush();
@@ -92,9 +93,10 @@ class ReservationController extends AbstractController
         $reservation->setDateReservation($data['datereservation']);
         $reservation->setDateRetour($data['dateretour']);
         $reservation->setTarif($data['tarif']);
-        $reservation->setClient($data['client']);
-        $reservation->setChauffeur($data['chauffeur']);
-        $reservation->setVoiture($data['voiture']);
+        $reservation->setLieudisposition($data['lieudispo']);
+        $reservation->setClient($client);
+        $reservation->setChauffeur($chauffeur);
+        $reservation->setVoiture($voiture); 
         
         $emi->persist($reservation);
         $emi->flush();

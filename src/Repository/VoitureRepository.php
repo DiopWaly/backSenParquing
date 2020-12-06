@@ -47,4 +47,13 @@ class VoitureRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function trieVoitures($value){
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.modele = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+
+     }
 }

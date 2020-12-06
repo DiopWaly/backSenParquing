@@ -54,6 +54,11 @@ class Reservation
      */
     private $voiture;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lieudisposition;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -139,6 +144,18 @@ class Reservation
     public function setVoiture(?voiture $voiture): self
     {
         $this->voiture = $voiture;
+
+        return $this;
+    }
+
+    public function getLieudisposition(): ?string
+    {
+        return $this->lieudisposition;
+    }
+
+    public function setLieudisposition(?string $lieudisposition): self
+    {
+        $this->lieudisposition = $lieudisposition;
 
         return $this;
     }
